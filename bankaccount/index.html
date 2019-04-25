@@ -8,15 +8,33 @@
         * { box-sizing: border-box; }
 
         h1,h2 { text-align: center}
+		#btnName {
+			width: 30%;
+			height: 50px;
+			margin: 5% 35%;
+			background-color: darkseagreen;
+			color: white;
+			padding: 0;
+			display: block;
+
+		}
         ul {
             border: solid 2px #999;
+			width: 80%;
+			height: 200px;
+			margin: 0 auto;
+			display: flex;
+			align-items: center;
+			justify-content: space-around;
+/*
             padding: 5% 0;
+*/
         }
         li {
             list-style-type: none;
             display: inline-block;
             width: 30%;
-            padding-left: 10%;
+            //padding-left: 10%;
 
         }
         button {
@@ -25,22 +43,30 @@
             text-transform: uppercase;
             text-align: center;
         }
+		#welcome {
+			text-align: center;
+		}
         #display {
-            font-weight: bold;
+            /*font-weight: bold;*/
             color: darkmagenta;
             font-size: 18px;
             text-align: center;
         }
+		button:first {
+			outline: none;
+		}
 
     </style>
 </head>
 <body>
     <h1>Welcome to ...</h1>
     <h2>Bank Account Application</h2>
+
+    <button id="btnName">Name</button>
+    <p id="welcome">&nbsp;</p>
+
     <ul>
-        <li>
-            <button id="btnName">Name</button>
-        </li>
+
         <li>
             <button id="btnDeposit">Deposit</button>
         </li>
