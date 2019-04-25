@@ -29,6 +29,8 @@ var createSlideshow = function () {
             btn.value = "Pause";
         }
     };
+
+
     // PUBLIC METHODS THAT HAVE ACCESS TO PRIVATE VARIABLES AND FUNCTIONS
     return {
         loadImages: function (slides) {
@@ -49,6 +51,13 @@ var createSlideshow = function () {
             timer = setInterval(displayNextImage, 2000);
             return this;
         },
+		/*
+		setSlideShowSpeed: function (int) {
+			window.console.log("hello " + int);
+        	setInterval(slideshow,100);
+			return this;
+    	},
+		*/
         createToggleHandler: function () {
             var me = this;
             // CLOSURE TO BE USED AS THE CLICK EVENT HANDLER
@@ -89,4 +98,10 @@ window.addEventListener("load", function () {
     slideshow.loadImages(slides).startSlideShow($("image"), $("caption"));
     // PAUSE THE SLIDESHOW
     $("play_pause").onclick = slideshow.createToggleHandler();
+	//$("set_speed").addEventListener("click", slideshow.setSlideShowSpeed(200));
+	$("set_speed").addEventListener("click", function() {
+		var a = window.prompt('enter speed(slow, fast, moderate)');
+		//slideshow.setSlideShowSpeed(200);
+		setInterval(slideshow.startSlideShow, 100);
+	});
 });
