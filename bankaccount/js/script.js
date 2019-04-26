@@ -7,12 +7,15 @@ var $ = function (id) {
 
 BankAccount = {
 
-    	ownerArray: [], // format: [[name,balance],[name,balance], ...]
+    	ownerArray: [],
+        /* array format: [[name,balance],[name,balance], ...] */
 
 		//deposit method
         deposit: function (name,amount) {
-			  window.console.log('add deposit ' + amount +  ' for ' + name);
-			let i = this.getName(name);
+            "use strict";
+            var i;
+            window.console.log('add deposit ' + amount +  ' for ' + name);
+			i = this.getName(name);
 			this.ownerArray[i][1] += Number(amount);
 			  window.console.log(this.ownerArray[i]);
 			this.getBalance(i);
@@ -21,8 +24,10 @@ BankAccount = {
 
 	   //withdraw method
         withdraw: function (name,amount) {
-			  window.console.log('withdraw ' + amount +  ' for ' + name);
-			let i = this.getName(name);
+            "use strict";
+            var i;
+			window.console.log('withdraw ' + amount +  ' for ' + name);
+			i = this.getName(name);
 			if (Number(amount) > this.ownerArray[i][1] ) {
 				window.alert("Insuffient funds to withdraw amount $" + amount);
 			} else {
@@ -35,24 +40,26 @@ BankAccount = {
 
 		//getName method
 		getName: function(name) {
-			window.console.log('find owner ' + name + ' in ownerArray');
+            "use strict";
+            var i, newAcct, found = false;
+           	window.console.log('find owner ' + name + ' in ownerArray');
 			if (this.ownerArray.length < 1) {
-				  window.console.log('owner array is empty');
-				let newAcct = [name,0];
+				window.console.log('owner array is empty');
+				newAcct = [name,0];
 				this.ownerArray.push(newAcct);
-				  window.console.log(this.ownerArray[0]);
+				//window.console.log(this.ownerArray[0]);
 				return 0;
 			} else {
-				var found = false;
-				  window.console.log('array not empty, find ' + name);
-				for ( var i = 0; i < this.ownerArray.length; i += 1) {
+                // not empty array
+				window.console.log('array not empty, find ' + name);
+				for (i = 0; i < this.ownerArray.length; i += 1) {
 					if (this.ownerArray[i][0] === name) {
 						found = true;
 						return i;
-						};
-				};
+					};
+				}; // end for loop
 				if (!found) {
-					  window.console.log('create new owner in array');
+				    window.console.log('create new owner in array');
 					let newAcct = [name,0];
 					this.ownerArray.push(newAcct);
 					  window.console.log(this.ownerArray);
@@ -74,11 +81,11 @@ BankAccount = {
 
 window.addEventListener("load", function () {
     "use strict";
-	var ownerName, depositAmount, withdrawAmount;
+	var ownerName, withdrawAmount;
 
-     $("btnName").addEventListener("click", function(e) {
+     $("btnName").addEventListener("click", function() {
         "use strict";
-			e.stopPropagation();
+
         ownerName = window.prompt('Enter your name');
 		ownerName = ownerName.charAt(0).toUpperCase() + ownerName.slice(1).toLowerCase();
         window.console.log(ownerName);
@@ -88,31 +95,37 @@ window.addEventListener("load", function () {
 		// DEPOSIT BUTTON EVENT LISTENER
 		$("btnDeposit").addEventListener("click", function() {
 			"use strict";
+            var depositAmount;
 
-			depositAmount = window.prompt('Enter Deposit Amount','999.99');
+			depositAmount = window.prompt('Enter Deposit Amount','0.00');
 			window.console.log(ownerName,depositAmount,typeof(depositAmount),isNaN(depositAmount));
+
 			if (isNaN(depositAmount)) {
 				window.alert("Please ender valid number ex 999.99");
 				depositAmount = 0;
 			};
+
 			BankAccount.deposit(ownerName,depositAmount);
-				//return depositAmount;
+			return depositAmount;
 
      	});
 
 		// WITHDRAW BUTTON EVENT LISTENER
-		$("btnWithdraw").addEventListener("click", function() {
+		$("btnWithdraw").addEventListener("click", function(e) {
 			"use strict";
 
-			withdrawAmount = window.prompt('Enter Withdraw Amount','999.99');
+            var withdrawAmount;
+            window.console.log(e.target);
+
+			withdrawAmount = window.prompt('Enter Withdraw Amount','0.00');
 
 			window.console.log(ownerName,withdrawAmount);
-			if (isNaN(depositAmount)) {
+			if (isNaN(withdrawAmount)) {
 				window.alert("Please ender valid number ex 999.99");
 				depositAmount = 0;
 			};
 			BankAccount.withdraw(ownerName,withdrawAmount);
-			//return withdrawAmount;
+			return withdrawAmount;
 		});
 
 		window.console.log('owner name =',ownerName);

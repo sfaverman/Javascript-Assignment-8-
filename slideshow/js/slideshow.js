@@ -49,15 +49,30 @@ var createSlideshow = function () {
                 nodes.caption = arguments[1];
             }
             timer = setInterval(displayNextImage, 2000);
+            window.console.log("timer=",timer);
             return this;
         },
-		/*
-		setSlideShowSpeed: function (int) {
-			window.console.log("hello " + int);
-        	setInterval(slideshow,100);
-			return this;
-    	},
-		*/
+
+		setSlideShowSpeed: function (speed) {
+			switch(speed) {
+                  case 'slow':
+                    speed = '1000';
+                    break;
+                  case 'moderate':
+                    speed = '2000';
+                    break;
+                   case 'fast':
+                    speed = '3000';
+                    break;
+                  default:
+                    speed = '2000';
+                    break;
+                }
+            timer = setInterval(displayNextImage, speed);
+            window.console.log("timer=",timer);
+            return this;
+        },
+
         createToggleHandler: function () {
             var me = this;
             // CLOSURE TO BE USED AS THE CLICK EVENT HANDLER
@@ -98,10 +113,10 @@ window.addEventListener("load", function () {
     slideshow.loadImages(slides).startSlideShow($("image"), $("caption"));
     // PAUSE THE SLIDESHOW
     $("play_pause").onclick = slideshow.createToggleHandler();
-	//$("set_speed").addEventListener("click", slideshow.setSlideShowSpeed(200));
+
 	$("set_speed").addEventListener("click", function() {
-		var a = window.prompt('enter speed(slow, fast, moderate)');
-		//slideshow.setSlideShowSpeed(200);
-		setInterval(slideshow.startSlideShow, 100);
-	});
+		var speed = window.prompt('enter speed(slow, fast, moderate)');
+        window.console.log(speed);
+        slideshow.setSlideShowSpeed(speed);
+    });
 });
